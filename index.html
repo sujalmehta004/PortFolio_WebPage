@@ -110,12 +110,33 @@
 
         // Example usage - simulate receiving an image
         setTimeout(() => {
-            addImageToContainer('data:image/png;base64,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', 'https://example.com');
+            addImageToContainer('https://via.placeholder.com/200', 'https://example.com');
         }, 1000);
 
         setTimeout(() => {
-            addImageToContainer('https://www.google.com/imgres?q=online%20image%20url%5C&imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2015%2F03%2F10%2F17%2F23%2Fyoutube-667451_1280.png&imgrefurl=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Furl%2F&docid=OVVUTETZ1D78_M&tbnid=wKfqXpvdYEvQbM&vet=12ahUKEwi82pCw_NaKAxXaSmwGHcWfG1YQM3oECGcQAA..i&w=1280&h=640&hcb=2&ved=2ahUKEwi82pCw_NaKAxXaSmwGHcWfG1YQM3oECGcQAA', 'https://example.com/other');
+            addImageToContainer('https://via.placeholder.com/150', 'https://example.com/other');
         }, 3000);
+
+        // Function to handle real-time communication using WebSocket
+        function setupWebSocketConnection() {
+            const socket = new WebSocket('wss://your-website.com/realtime');
+
+            socket.addEventListener('open', () => {
+                console.log('WebSocket connection established.');
+            });
+
+            socket.addEventListener('message', (event) => {
+                const data = JSON.parse(event.data);
+                if (data.type === 'image') {
+                    addImageToContainer(data.imageURL, data.sourceWebsite);
+                }
+            });
+
+            return socket;
+        }
+
+        // Start WebSocket connection
+        setupWebSocketConnection();
     </script>
 </body>
 </html>
