@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sujal Mehta's Image Exchange</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px;
+            width: 80%;
+            justify-content: center;
+        }
+
+        .image-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .image-item img {
+            max-width: 200px;
+            max-height: 200px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .image-item input {
+            width: 90%;
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        h1 {
+            margin: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Sujal Mehta's Image Exchange</h1>
+    <div class="image-container" id="imageContainer"></div>
+
+    <script>
+        // WebSocket or HTTP POST API setup for receiving images
+        const imageContainer = document.getElementById('imageContainer');
+
+        // Example of adding an image dynamically when received
+        function addImageToContainer(imageURL, sourceWebsite) {
+            const div = document.createElement('div');
+            div.className = 'image-item';
+
+            const img = document.createElement('img');
+            img.src = imageURL;
+            img.alt = 'Received image';
+            div.appendChild(img);
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = `Send message to ${sourceWebsite}`;
+
+            input.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' && input.value.trim()) {
+                    sendMessageToSource(sourceWebsite, input.value);
+                    imageContainer.innerHTML = ''; // Clear the div
+                }
+            });
+
+            div.appendChild(input);
+            imageContainer.appendChild(div);
+        }
+
+        // Function to send message back to the originating website
+        function sendMessageToSource(sourceWebsite, message) {
+            fetch(sourceWebsite, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to send message');
+                    }
+                    alert('Message sent successfully!');
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Error sending message.');
+                });
+        }
+
+        // Example usage - simulate receiving an image
+        setTimeout(() => {
+            addImageToContainer('https://via.placeholder.com/200', 'https://example.com');
+        }, 1000);
+
+        setTimeout(() => {
+            addImageToContainer('https://via.placeholder.com/150', 'https://example.com/other');
+        }, 3000);
+    </script>
+</body>
+</html>
